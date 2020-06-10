@@ -158,6 +158,109 @@ x <- c(2,43,27,95,17)
          f_n[n] <- factorial(n)
          }
          f_n
+         
+#Compute log to the base 10 (log10) of the sqrt of 100.
+         
+         log(sqrt(100), base = 10)
+         
+#Extracting the column Names
+         
+         names(datasetname)
+         
+libraray(dslabs)
+data(murders)
+         
+#Identical function
+         
+         a <- class(murders$abb)
+         b <- class(murders["abb"])
+         identical(a,b)
+         
+#Length and Levels function combined
+         
+         length(levels(murders$region))
+         
+#Table function with region and states
+         
+         table(murders$region)
+
+#length.out argument under seq function will generate sequence that are increasing by length.out number.
+         
+         x <- seq(0, 100, length.out = 5)
+         
+# with reference to above example, R computes like this 0, 5*5,5*5*5,5*5*5*5 and returns 0,25,75,100 
+#this is how length.out argument works
+
+#When looking at a dataset, we may want to sort the data in an order that makes more sense for analysis. Let's learn to do this using the murders dataset as an example.
+#Use the $ operator to access the population size data and store it in the object pop.
+#Then use the sort function to redefine pop so that it is sorted.
+#Finally use the [ operator to report the smallest population size.
+         
+         library(dslabs)
+         data(murders)
+         pop <- murders$population
+         sort(pop)
+         min(pop)
+
+#Find the index of the smallest state using which.min(murders$population).
+#Define a variable states to hold the state names from the murders data frame.
+#Combine these to find the state name for the smallest state.
+         
+#Single line of code
+      
+                   states <- murders$state
+                   states[which.min(murders$population)]
+                       OR
+                  murders$state[which.min(murders$population)] 
+#Create a data frame with both variables following the correct order. Use the bracket operator [ to re-order each column in the data frame. For example, states[o] orders the abbreviations based by population size.
+                  
+                  ind <- order(murders$population)
+                  states[ind] ## Order the states based the population size
+                  my_df <- data.frame(states = states[ind], ranks = ranks[ind])
+                  
+#Calculation NA's enteries in the dataset
+                  
+                  sum(is.na(datasetname))
+                  
+
+#Calcuating Murder rate for each of the state
+                  
+                  murder_rate <- murders$total/murders$population* 100000
+                  
+#match() function
+                  
+                  abb <- c("AK", "MI", "IA")
+                  states[match(abb, murders$abb)]
+                  
+#which function: which all abb not available in murders$abb
+                  abb <- c("MA", "ME", "MI", "MO", "MU")
+                  ind <- which(!abb%in%murders$abb)
+                  abb[ind]
+
+#Using the pipe %>%
+                  
+                  libraray(dplyr)
+                  library(dslab)
+                  data(murders)
+                  murders <- mutate(murders, rate = total/population * 100000, rank = rank(-rate))
+                  my_states <- filter(murders, region %in% c("Northeast", "West") & rate < 1) %>%  select(state, rate, rank)
+
+                  OR
+                  
+                  my_states <- murders %>% mutate(rate = total/population * 100000, rank = rank(-rate)) %>% filter(region %in% c("Northeast", "West"), rate < 1) %>% select(state, rate, rank)
+                  
+
+                  
+
+                  
+                  
+
+                   
+         
+
+               
+         
+         
 
       
    
